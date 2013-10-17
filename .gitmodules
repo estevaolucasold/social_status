@@ -1,0 +1,9 @@
+[submodule "sdks/facebook"]
+	path = sdks/facebook
+	url = https://github.com/facebook/facebook-php-sdk.git
+[submodule "sdks/twitter"]
+	path = sdks/twitter
+	url = https://github.com/J7mbo/twitter-api-php.git
+[submodule "instagram"]
+	path = instagram
+	url = https://github.com/cosenary/Instagram-PHP-API.git
