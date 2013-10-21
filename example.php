@@ -12,14 +12,6 @@ $social = new SocialStatus(array(
 			'consumer_secret'			=> 'tSnLIC2Ckur4FoQ4JUNrioargOE7DwWbYzKVWT02qY8'
 		)
 	),
-	'facebook' => array(
-		'keys' => array(
-			'appId'  		=> '555197614568021',
-			'secret' 		=> '416dde5c28d61b452850bfc30a02df77',
-			'access_token'	=> '555197614568021|iFrWSHKnEEt0JKRUf4svTH_y2RM',
-			'cookie' 		=> true
-		)
-	),
 	'instagram' => array(
 		'user_id'	=>	716240,
 		'keys'		=> array(
