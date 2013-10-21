@@ -51,6 +51,7 @@ Example:
 ## TODO
 
 * Add Facebook support
+* Cron job to get and save status
 
 
 ## Credits
