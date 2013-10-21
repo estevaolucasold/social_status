@@ -11,16 +11,6 @@ $social = new SocialStatus(array(
 			'consumer_key'				=>	'nHmBrgVRxGrdw6OdOl3Cw',
 			'consumer_secret'			=> 'tSnLIC2Ckur4FoQ4JUNrioargOE7DwWbYzKVWT02qY8'
 		)
-	),
-	'instagram' => array(
-		'user_id'	=>	716240,
-		'keys'		=> array(
-			'apiKey'  		=> '3e9050add4294715a4b36ddf6cc8412e',
-			'apiSecret' 	=> '5aede6734a2544ab82940a52c5c40d43',
-			'apiCallback' 	=> 'http://localhost/social_status/teste.php',
-			'code'			=> '2d21e8df950c47b9916b598aaf280806',
-			'access_token'	=> '716240.3e9050a.fdc1258b216b4446ae94c7a8ef5e70d2'
-		)
 	)
 ));
 
