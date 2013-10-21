@@ -14,6 +14,6 @@ $social = new SocialStatus(array(
 	)
 ));
 
-print_r($social->twitter->get_status(1));
+print_r($social->twitter->get_latest_one());
 
 ?>
