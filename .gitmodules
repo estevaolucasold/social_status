@@ -5,5 +5,5 @@
 	path = sdks/twitter
 	url = https://github.com/J7mbo/twitter-api-php.git
 [submodule "instagram"]
-	path = instagram
+	path = sdks/instagram
 	url = https://github.com/cosenary/Instagram-PHP-API.git
