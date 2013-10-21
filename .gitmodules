@@ -1,9 +1,12 @@
 [submodule "sdks/facebook"]
 	path = sdks/facebook
 	url = https://github.com/facebook/facebook-php-sdk.git
+	ignore = dirty
 [submodule "sdks/twitter"]
 	path = sdks/twitter
 	url = https://github.com/J7mbo/twitter-api-php.git
+	ignore = dirty
 [submodule "instagram"]
 	path = sdks/instagram
 	url = https://github.com/cosenary/Instagram-PHP-API.git
+	ignore = dirty
