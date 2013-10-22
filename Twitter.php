@@ -11,7 +11,7 @@ class TwitterStatus extends SocialNetwork {
 		$this->instance = new TwitterAPIExchange($this->options['keys']);
 	}
 
-	public function get_status($limit = 10) {
+	public function get_data($limit = 10) {
 		$response = $this->instance
 			->setGetfield('?' . http_build_query(array(
 				'screen_name' 	=> $this->options['user_id'], 
@@ -27,7 +27,7 @@ class TwitterStatus extends SocialNetwork {
 		$filtered = array();
 
 		foreach ($data as $item) {
-			$filtered[] = array(
+			$filtered[] = (object)array(
 				'type'			=> $this->name,
 				'created_time' 	=> strtotime($item->created_at),
 				'link'			=> 'http://twitter.com/' . $item->user->screen_name . '/status/' . $item->id,
@@ -36,7 +36,7 @@ class TwitterStatus extends SocialNetwork {
 			);
 		}
 
-		return (object)$filtered;
+		return $filtered;
 	}
 }
 

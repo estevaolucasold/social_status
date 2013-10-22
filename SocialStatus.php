@@ -51,18 +51,16 @@ class SocialStatus {
 		return $this->sort($responses);
 	}
 
-	public function sort($data, $property = 'created_time') {
-		$sort = (array)$data;
-
-		usort($sort, function($a, $b) {
-		    if ($a[$property] == $b[$property]) {
+	public function sort($data) {
+		usort($data, function($a, $b) {
+			if ($a->created_time == $b->created_time) {
 		        return 0;
 		    }
 
-		    return ($a[$property] > $b[$property]) ? -1 : 1;
+		    return ($a->created_time > $b->created_time) ? -1 : 1;
 		});
 
-		return (object)$sort;
+		return $data;
 	}
 
 	public function set_timezone($timezone) {

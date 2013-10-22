@@ -14,7 +14,7 @@ class InstagramStatus extends SocialNetwork {
 		$this->instance->setAccessToken($options['keys']['access_token']);
 	}
 
-	public function get_status($limit = 10) {
+	public function get_data($limit = 10) {
 		$response = $this->instance->getUserMedia($this->options['user_id'], $limit);
 
 		if ($response) {
@@ -28,7 +28,7 @@ class InstagramStatus extends SocialNetwork {
 		$filtered = array();
 
 		foreach ($data as $item) {
-			$filtered[] = array(
+			$filtered[] = (object)array(
 				'type'			=> $this->name,
 				'created_time' 	=> $item->created_time,
 				'link'			=> $item->link,
