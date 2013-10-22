@@ -27,6 +27,8 @@ class TwitterStatus extends SocialNetwork {
 		$filtered = array();
 
 		foreach ($data as $item) {
+			$item = $this->parse_message($item);
+			
 			$filtered[] = (object)array(
 				'type'			=> $this->name,
 				'created_time' 	=> strtotime($item->created_at),
@@ -37,6 +39,53 @@ class TwitterStatus extends SocialNetwork {
 		}
 
 		return $filtered;
+	}
+
+	private function parse_message($tweet) {
+		$replace_index = array();
+
+		if (!empty($tweet->entities)) {
+			foreach ($tweet->entities as $area => $items) {
+				switch ($area) {
+					case 'hashtags':
+						$find = 'text';
+						$prefix = '#';
+						$url = 'https://twitter.com/search/?src=hash&q=%23';
+						break;
+					case 'user_mentions':
+						$find = 'screen_name';
+						$prefix = '@';
+						$url = 'https://twitter.com/';
+						break;
+					case 'media': case 'urls':
+						$find = 'display_url';
+						$prefix = '';
+						$url = '';
+						break;
+					default: break;
+				}
+
+				foreach ($items as $item) {
+					$text = $tweet->text;
+					$string = $item->$find;
+					$href = $url . $string;
+					
+					if (!(strpos($href, 'http://') === 0)) {
+						$href = "http://".$href;
+					}
+
+					$replace = substr($text, $item->indices[0], $item->indices[1]-$item->indices[0]);
+					$with = "<a href=\"$href\">{$prefix}{$string}</a>";
+					$replace_index[$replace] = $with;
+				}
+			}
+			
+			foreach ($replace_index as $replace => $with) {
+				$tweet->text = str_replace($replace, $with, $tweet->text);
+			}
+		}
+
+		return $tweet;
 	}
 }
 
