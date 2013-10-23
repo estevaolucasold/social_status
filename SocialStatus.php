@@ -4,6 +4,8 @@ require_once('Twitter.php');
 require_once('Instagram.php');
 
 class SocialStatus {
+	private static $instance = null;
+
 	public $cache_file = 'cache.json';
 	public $cache_expire_time = 86400; //24 * 60 * 60;
 	public $cache_enabled = false;
@@ -14,6 +16,14 @@ class SocialStatus {
 		'instagram'		=> 'InstagramStatus'
 	);
 
+	public static function get_instance($options = array()) {
+		if (null == self::$instance) {
+			self::$instance = new self($options);
+		}
+ 
+		return self::$instance;
+	}
+	
 	public function __construct($options = array()) {
 		$this->networks = array();
 		$this->options = $options;
