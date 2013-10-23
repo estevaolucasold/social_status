@@ -29,7 +29,7 @@ class InstagramStatus extends SocialNetwork {
 
 		foreach ($data as $item) {
 			$filtered[] = (object)array(
-				'id'			=> $this->id,
+				'id'			=> $item->id,
 				'type'			=> $this->name,
 				'created_time' 	=> $item->created_time,
 				'link'			=> $item->link,
