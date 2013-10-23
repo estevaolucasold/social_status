@@ -58,7 +58,7 @@ class SocialStatus {
 			}
 		}
 
-		return $this->sort($responses);
+		return array_splice($this->sort($responses), 0, $limit);
 	}
 
 	public function sort($data) {
