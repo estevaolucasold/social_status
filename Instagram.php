@@ -35,7 +35,11 @@ class InstagramStatus extends SocialNetwork {
 				'link'			=> $item->link,
 				'images'		=> $item->images,
 				'text'			=> ($item->caption && $item->caption->text) ? $item->caption->text : '',
-				'user'			=> $item->user->username
+				'user'			=> array(
+					'username'	=> $item->user->username,
+					'fullname'	=> $item->user->full_name,
+					'link'		=> 'http://instagram.com/' . $item->user->username
+				)
 			);
 		}
 
