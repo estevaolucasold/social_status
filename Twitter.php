@@ -35,10 +35,10 @@ class TwitterStatus extends SocialNetwork {
 				'created_time' 	=> strtotime($item->created_at),
 				'link'			=> 'http://twitter.com/' . $item->user->screen_name . '/status/' . $item->id_str,
 				'text'			=> $item->text,
-				'user'			=> array(
-					'username'	=> $item->user->screen_name,
-					'fullname'	=> $item->user->name,
-					'link'		=> 'http://twitter.com/' . $item->user->screen_name
+				'user'			=> (object)array(
+					'username'		=> $item->user->screen_name,
+					'fullname'		=> $item->user->name,
+					'link'			=> 'http://twitter.com/' . $item->user->screen_name
 				)
 			);
 		}
