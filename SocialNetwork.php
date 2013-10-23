@@ -22,7 +22,7 @@ abstract class SocialNetwork {
 	}
 
 	public function read_cache($limit) {
-		$file = get_class($this) . '_cache.json';
+		$file = __DIR__ . '/' . get_class($this) . '_cache.json';
 		
 		if (file_exists($file) && (time() - $this->cache_expire_time < filemtime($file))) {
 			return json_decode(file_get_contents($file));
