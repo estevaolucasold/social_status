@@ -28,6 +28,7 @@ abstract class SocialNetwork {
 			return json_decode(file_get_contents($file));
 		} else {
 			$content = $this->get_data($limit);
+			chmod(__DIR__, 755);
 			file_put_contents($file, json_encode($content));
 			
 			return json_decode(json_encode($content));

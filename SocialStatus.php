@@ -37,12 +37,13 @@ class SocialStatus {
 	}
 
 	public function get_all_status($limit = 10) {
-		$file = $this->cache_file;
+		$file = __DIR__ . '/' . $this->cache_file;
 		
 		if ($this->cache_enabled && file_exists($file) && (time() - $this->cache_expire_time < filemtime($file))) {
 			return json_decode(file_get_contents($file));
 		} else {
 			$content = $this->get_data($limit);
+			chmod(__DIR__, 755);
 			file_put_contents($file, json_encode($content));
 			
 			return $content;
