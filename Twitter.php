@@ -30,9 +30,10 @@ class TwitterStatus extends SocialNetwork {
 			$item = $this->parse_message($item);
 			
 			$filtered[] = (object)array(
+				'id'			=> $item->id,
 				'type'			=> $this->name,
 				'created_time' 	=> strtotime($item->created_at),
-				'link'			=> 'http://twitter.com/' . $item->user->screen_name . '/status/' . $item->id,
+				'link'			=> 'http://twitter.com/' . $item->user->screen_name . '/status/' . $item->id_str,
 				'text'			=> $item->text,
 				'user'			=> $item->user->screen_name
 			);

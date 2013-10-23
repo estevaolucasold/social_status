@@ -51,7 +51,9 @@ Example:
 ## TODO
 
 * Add Facebook support
+* Add Youtube support
 * Cron job to get and save status
+* Get status by timestamp
 
 
 ## Credits

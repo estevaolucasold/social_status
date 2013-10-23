@@ -29,11 +29,12 @@ class InstagramStatus extends SocialNetwork {
 
 		foreach ($data as $item) {
 			$filtered[] = (object)array(
+				'id'			=> $this->id,
 				'type'			=> $this->name,
 				'created_time' 	=> $item->created_time,
 				'link'			=> $item->link,
 				'image'			=> $item->images->thumbnail->url,
-				'title'			=> ($item->caption && $item->caption->text) ? $item->caption->text : '',
+				'text'			=> ($item->caption && $item->caption->text) ? $item->caption->text : '',
 				'user'			=> $item->user->username
 			);
 		}
