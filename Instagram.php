@@ -33,7 +33,7 @@ class InstagramStatus extends SocialNetwork {
 				'type'			=> $this->name,
 				'created_time' 	=> $item->created_time,
 				'link'			=> $item->link,
-				'image'			=> $item->images->thumbnail->url,
+				'images'		=> $item->images,
 				'text'			=> ($item->caption && $item->caption->text) ? $item->caption->text : '',
 				'user'			=> $item->user->username
 			);
