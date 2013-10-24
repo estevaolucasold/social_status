@@ -49,7 +49,6 @@ Useful to use with a cron job to update the network's cache file
 ## TODO
 
 * Add Facebook support
-* Add Youtube support
 
 
 ## Credits

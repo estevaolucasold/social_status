@@ -51,7 +51,7 @@ abstract class SocialNetwork {
 		if (file_exists($this->cache_file)) {
 			$cached = json_decode(file_get_contents($this->cache_file));
 
-			if (count($cached)) {
+			if (count($cached) && property_exists($this, 'min_id')) {
 				$params = array($this::$min_id => $cached[0]->id);
 			}
 		}

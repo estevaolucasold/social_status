@@ -10,3 +10,6 @@
 	path = sdks/instagram
 	url = https://github.com/estevaolucas/Instagram-PHP-API.git
 	ignore = dirty
+[submodule "sdks/youtube"]
+	path = sdks/youtube
+	url = https://github.com/vitorhsb/youtube-public-php-api.git
