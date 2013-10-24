@@ -6,7 +6,7 @@
 	path = sdks/twitter
 	url = https://github.com/J7mbo/twitter-api-php.git
 	ignore = dirty
-[submodule "instagram"]
+[submodule "sdks/instagram"]
 	path = sdks/instagram
-	url = https://github.com/cosenary/Instagram-PHP-API.git
+	url = https://github.com/estevaolucas/Instagram-PHP-API.git
 	ignore = dirty
