@@ -6,8 +6,6 @@ require_once('Instagram.php');
 class SocialStatus {
 	private static $instance = null;
 
-	public $cache_file = 'cache.json';
-	public $cache_expire_time = 86400; //24 * 60 * 60;
 	public $cache_enabled = false;
 	public $timezone = 'America/Sao_Paulo';
 
@@ -37,24 +35,14 @@ class SocialStatus {
 	}
 
 	public function get_all_status($limit = 10) {
-		$file = __DIR__ . '/' . $this->cache_file;
-		
-		if ($this->cache_enabled && file_exists($file) && (time() - $this->cache_expire_time < filemtime($file))) {
-			return json_decode(file_get_contents($file));
-		} else {
-			$content = $this->get_data($limit);
-			chmod(__DIR__, 755);
-			file_put_contents($file, json_encode($content));
-			
-			return $content;
-		}
+		return $this->get_data($limit);
 	}
 
 	private function get_data($limit) {
 		$responses = array();
 
 		foreach ($this->networks as $network => $instance) {
-			if ($status = $instance->get_status($limit)) {
+			if ($status = $instance->get_status($limit, $this->cache_enabled)) {
 				$responses = array_merge($status, $responses);
 			}
 		}
@@ -76,6 +64,12 @@ class SocialStatus {
 
 	public function set_timezone($timezone) {
 		date_default_timezone_set($timezone);
+	}
+
+	public function update_cache() {
+		foreach ($this->networks as $network) {
+			$network->update_cache();
+		}
 	}
 
 	private function loadSDKs() {

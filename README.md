@@ -28,12 +28,6 @@ Example:
 	);					
 	
 	
-## Available properties
-
-* `cache_enabled` default(cache.json)
-* `cache_expire_time` (default 86400)
-* `cache_enabled)` (default false)
-
 ## Available methods
 
 
@@ -48,12 +42,14 @@ Example:
 
 	$latest_tweet = $status->twitter->get_status(1);
 	
+`update_cache`
+
+Useful to use with a cron job to update the network's cache file
+	
 ## TODO
 
 * Add Facebook support
 * Add Youtube support
-* Cron job to get and save status
-* Get status by timestamp
 
 
 ## Credits

@@ -4,19 +4,22 @@ require_once('SocialNetwork.php');
 require_once('sdks/twitter/TwitterAPIExchange.php');
 
 class TwitterStatus extends SocialNetwork {
-	public $name = 'twitter';
+	public static $name 	= 'twitter';
+	public static $min_id 	= 'since_id';
 
 	public function __construct($options) {
 		$this->options = $options;
 		$this->instance = new TwitterAPIExchange($this->options['keys']);
+
+		parent::__construct($options);
 	}
 
-	public function get_data($limit = 10) {
+	public function get_data($limit = 10, $params = array()) {
 		$response = $this->instance
-			->setGetfield('?' . http_build_query(array(
+			->setGetfield('?' . http_build_query(array_merge(array(
 				'screen_name' 	=> $this->options['user_id'], 
 				'count' 		=> $limit
-			)))
+			), $params)))
 			->buildOauth('https://api.twitter.com/1.1/statuses/user_timeline.json', 'GET')
 			->performRequest();
 
@@ -31,14 +34,14 @@ class TwitterStatus extends SocialNetwork {
 			
 			$filtered[] = (object)array(
 				'id'			=> $item->id,
-				'type'			=> $this->name,
+				'type'			=> $this::name,
 				'created_time' 	=> strtotime($item->created_at),
-				'link'			=> 'http://twitter.com/' . $item->user->screen_name . '/status/' . $item->id_str,
+				'link'			=> 'https://twitter.com/' . $item->user->screen_name . '/status/' . $item->id_str,
 				'text'			=> $item->text,
 				'user'			=> (object)array(
 					'username'		=> $item->user->screen_name,
 					'fullname'		=> $item->user->name,
-					'link'			=> 'http://twitter.com/' . $item->user->screen_name
+					'link'			=> 'https://twitter.com/' . $item->user->screen_name
 				)
 			);
 		}
@@ -53,30 +56,30 @@ class TwitterStatus extends SocialNetwork {
 			foreach ($tweet->entities as $area => $items) {
 				switch ($area) {
 					case 'hashtags':
-						$find = 'text';
-						$prefix = '#';
-						$url = 'https://twitter.com/search/?src=hash&q=%23';
+						$find 		= 'text';
+						$prefix 	= '#';
+						$url 		= 'https://twitter.com/search/?src=hash&q=%23';
 						break;
 					case 'user_mentions':
-						$find = 'screen_name';
-						$prefix = '@';
-						$url = 'https://twitter.com/';
+						$find 		= 'screen_name';
+						$prefix 	= '@';
+						$url 		= 'https://twitter.com/';
 						break;
 					case 'media': case 'urls':
-						$find = 'display_url';
-						$prefix = '';
-						$url = '';
+						$find 		= 'display_url';
+						$prefix 	= '';
+						$url 		= '';
 						break;
 					default: break;
 				}
 
 				foreach ($items as $item) {
-					$text = $tweet->text;
-					$string = $item->$find;
-					$href = $url . $string;
+					$text 		= $tweet->text;
+					$string 	= $item->$find;
+					$href 		= $url . $string;
 					
-					if (!(strpos($href, 'http://') === 0)) {
-						$href = "http://".$href;
+					if (!(strpos($href, 'https://') === 0)) {
+						$href = "https://".$href;
 					}
 
 					$replace = substr($text, $item->indices[0], $item->indices[1]-$item->indices[0]);
