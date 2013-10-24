@@ -1,7 +1,7 @@
 <?php
 
-require_once('Twitter.php');
-require_once('Instagram.php');
+require_once('TwitterStatus.php');
+require_once('InstagramStatus.php');
 require_once('YouTubeStatus.php');
 
 class SocialStatus {
