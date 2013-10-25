@@ -34,7 +34,7 @@ class TwitterStatus extends SocialNetwork {
 			
 			$filtered[] = (object)array(
 				'id'			=> $item->id,
-				'type'			=> $this::name,
+				'type'			=> $this::$name,
 				'created_time' 	=> strtotime($item->created_at),
 				'link'			=> 'https://twitter.com/' . $item->user->screen_name . '/status/' . $item->id_str,
 				'text'			=> $item->text,
