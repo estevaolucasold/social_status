@@ -3,6 +3,7 @@
 require_once('TwitterStatus.php');
 require_once('InstagramStatus.php');
 require_once('YouTubeStatus.php');
+require_once('FacebookStatus.php');
 
 class SocialStatus {
 	private static $instance = null;
@@ -13,7 +14,8 @@ class SocialStatus {
 	private $classes_name = array(
 		'twitter' 		=> 'TwitterStatus',
 		'instagram'		=> 'InstagramStatus',
-		'youtube'		=> 'YouTubeStatus'
+		'youtube'		=> 'YouTubeStatus', 
+		'facebook'		=> 'FacebookStatus'
 	);
 
 	public static function get_instance($options = array()) {
