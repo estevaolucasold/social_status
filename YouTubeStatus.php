@@ -8,7 +8,7 @@ class YouTubeStatus extends SocialNetwork {
 
 	public function __construct($options) {
 		$this->options = $options;
-		$this->instance = new Youtube($this->options);
+		$this->instance = new Youtube(array('user' => $this->options['user_id']));
 
 		parent::__construct($options);
 	}
@@ -50,4 +50,3 @@ class YouTubeStatus extends SocialNetwork {
 }
 
 ?>
-
