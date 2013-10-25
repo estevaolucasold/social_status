@@ -1,7 +1,8 @@
 <?php
 
 abstract class SocialNetwork {
-	public $cache_expire_time = 86400; //24 * 60 * 60;
+	public $cache_expire_time = 86400;
+	public $max_cache_itens_size = 100;
 	
 	abstract public function get_data();
 
@@ -59,7 +60,7 @@ abstract class SocialNetwork {
 		$status = $this->get_data(10, $params);
 
 		if (count($status)) {
-			file_put_contents($this->cache_file, json_encode(array_merge($status, $cached)));
+			file_put_contents($this->cache_file, json_encode(array_splice(array_merge($status, $cached), 0, $this->max_cache_itens_size)));
 			touch($this->cache_file, time());
 		}
 	}

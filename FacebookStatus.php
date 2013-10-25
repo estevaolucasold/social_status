@@ -49,13 +49,12 @@ class FacebookStatus extends SocialNetwork {
 		$author = (object)$author;
 
 		foreach ($data as $item) {
-			$item 		= (object)$item;
+			$item = (object)$item;
+			$published	= new DateTime($item->created_time);
 
 			if (!property_exists($item, 'message') && !property_exists($item, 'name')) {
 				continue;
 			}
-
-			$published	= new DateTime($item->created_time);
 
 			$filtered[] = (object)array(
 				'id'			=> $item->id,
