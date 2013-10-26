@@ -13,14 +13,14 @@ class FacebookStatus extends SocialNetwork {
 		$this->extendedAccessToken();
 
 		$this->permissions = array(
-			'scope' => 'read_stream'
+			'scope' => 'read_stream, offline_access'
 		);
 
 		parent::__construct($options);
 	}
 
 	public function get_data($limit = 10) {
-		try {
+		 try {
 			$user_profile = $this->instance->api('/me','GET');
 			$user = $this->instance->getUser();
 
@@ -74,17 +74,21 @@ class FacebookStatus extends SocialNetwork {
 	}
 
 	private function extendedAccessToken() {
-		$access_token = $_SESSION['fb_' . $this->options['keys']['appId'] . '_access_token'];
-		
-		if (!$access_token && array_key_exists('access_token', $this->options['keys'])) {
-			$access_token = $this->options['keys']['access_token'];
+		$access_token_file = __DIR__ . '/faceboo_access_token_cache.json';
+		$session_key = 'fb_' . $this->options['keys']['appId'] . '_access_token';
+
+		if (file_exists($access_token_file)) {
+			$access_token = file_get_contents($access_token_file);
+		} else if (isset($_SESSION) && isset($_SESSION[$session_key])) {
+			$access_token = $_SESSION[$session_key];
+			file_put_contents($access_token_file, $access_token);
 		}
 
 		if ($access_token) {
 			$this->instance->setExtendedAccessToken();
 			$this->instance->setAccessToken($access_token);
 			$accessToken = $this->instance->getAccessToken();
-		}
+		}	
 	}
 }
 
