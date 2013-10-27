@@ -14,7 +14,7 @@ class SocialStatus {
 	private $classes_name = array(
 		'twitter' 		=> 'TwitterStatus',
 		'instagram'		=> 'InstagramStatus',
-		'youtube'		=> 'YouTubeStatus', 
+		'youtube'		=> 'YouTubeStatus',
 		'facebook'		=> 'FacebookStatus'
 	);
 
@@ -22,14 +22,14 @@ class SocialStatus {
 		if (null == self::$instance) {
 			self::$instance = new self($options);
 		}
- 
+
 		return self::$instance;
 	}
-	
+
 	public function __construct($options = array()) {
 		$this->networks = array();
 		$this->options = $options;
-		
+
 		$this->set_timezone($this->timezone);
 		$this->loadSDKs();
 
@@ -74,6 +74,16 @@ class SocialStatus {
 		foreach ($this->networks as $network) {
 			$network->update_cache();
 		}
+	}
+
+	public function clear_cache() {
+		$cleared = false;
+
+		foreach ($this->networks as $network) {
+			$cleared = $network->clear_cache();
+		}
+
+		return $cleared;
 	}
 
 	private function loadSDKs() {

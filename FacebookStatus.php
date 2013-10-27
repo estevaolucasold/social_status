@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once('SocialNetwork.php');
 require_once('sdks/facebook/src/facebook.php');
@@ -37,7 +37,7 @@ class FacebookStatus extends SocialNetwork {
 			} else {
 				$loginUrl = $this->instance->getLoginUrl($this->permissions);
 				echo "<script>top.location.href = '" . $loginUrl . "';</script>";
-			}      
+			}
 		} catch (Exception $e) {
 			$loginUrl = $this->instance->getLoginUrl($this->permissions);
 			echo "<script>top.location.href = '" . $loginUrl . "';</script>";
@@ -64,7 +64,7 @@ class FacebookStatus extends SocialNetwork {
 				'text'			=> property_exists($item, 'message') ? $item->message : $item->name,
 				'user'			=> (object)array(
 					'username' 	=> $author->username,
-					'link'		=> $author->link,	
+					'link'		=> $author->link,
 					'name'		=> $author->name
 				)
 			);
@@ -76,6 +76,7 @@ class FacebookStatus extends SocialNetwork {
 	private function extendedAccessToken() {
 		$access_token_file = __DIR__ . '/faceboo_access_token_cache.json';
 		$session_key = 'fb_' . $this->options['keys']['appId'] . '_access_token';
+		$access_token = false;
 
 		if (file_exists($access_token_file)) {
 			$access_token = file_get_contents($access_token_file);
@@ -88,7 +89,7 @@ class FacebookStatus extends SocialNetwork {
 			$this->instance->setExtendedAccessToken();
 			$this->instance->setAccessToken($access_token);
 			$accessToken = $this->instance->getAccessToken();
-		}	
+		}
 	}
 }
 
