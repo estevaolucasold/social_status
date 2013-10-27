@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once('SocialNetwork.php');
 require_once('sdks/instagram/instagram.class.php');
@@ -37,7 +37,7 @@ class InstagramStatus extends SocialNetwork {
 				'created_time' 	=> $item->created_time,
 				'link'			=> $item->link,
 				'images'		=> $item->images,
-				'text'			=> ($item->caption && $item->caption->text) ? $item->caption->text : '',
+				'text'			=> $this->convert_links(($item->caption && $item->caption->text) ? $item->caption->text : ''),
 				'user'			=> (object)array(
 					'username'		=> $item->user->username,
 					'fullname'		=> $item->user->full_name,
@@ -47,6 +47,12 @@ class InstagramStatus extends SocialNetwork {
 		}
 
 		return $filtered;
+	}
+
+	private function convert_links($text) {
+		$text = preg_replace("/@(\w+)/", "<a href='http://instagram.com/$1' target='_blank'>@$1</a>", $text);
+
+		return $text;
 	}
 }
 

@@ -61,7 +61,7 @@ class FacebookStatus extends SocialNetwork {
 				'type'			=> $this::$name,
 				'created_time' 	=> $published->getTimestamp(),
 				'link'			=> $item->link,
-				'text'			=> property_exists($item, 'message') ? $item->message : $item->name,
+				'text'			=> $this->convert_links(property_exists($item, 'message') ? $item->message : $item->name),
 				'user'			=> (object)array(
 					'username' 	=> $author->username,
 					'link'		=> $author->link,
@@ -90,6 +90,13 @@ class FacebookStatus extends SocialNetwork {
 			$this->instance->setAccessToken($access_token);
 			$accessToken = $this->instance->getAccessToken();
 		}
+	}
+
+	private function convert_links($text) {
+		$text = preg_replace("/#([a-z_0-9]+)/i", "<a href=\"http://facebook.com/hashtag/$1\" target='_blank'>$0</a>", $text);
+		$text = preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" target="_blank">$1</a>', $text);
+
+		return $text;
 	}
 }
 

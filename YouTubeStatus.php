@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once('SocialNetwork.php');
 require_once('sdks/youtube/youtube.lib.php');
@@ -33,7 +33,7 @@ class YouTubeStatus extends SocialNetwork {
 				'created_time' 	=> $published->getTimestamp(),
 				'link'			=> $item->link,
 				'text'			=> $item->title,
-				'description'	=> $item->description,
+				'description'	=> $this->convert_links($item->description),
 				'image'			=> $item->thumbnail,
 				'views'			=> $item->views,
 				'duration'		=> $item->duration,
@@ -46,6 +46,10 @@ class YouTubeStatus extends SocialNetwork {
 		}
 
 		return $filtered;
+	}
+
+	private function convert_links($text) {
+		return preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" target="_blank">$1</a>', $text);
 	}
 }
 

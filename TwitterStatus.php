@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once('SocialNetwork.php');
 require_once('sdks/twitter/TwitterAPIExchange.php');
@@ -17,7 +17,7 @@ class TwitterStatus extends SocialNetwork {
 	public function get_data($limit = 10, $params = array()) {
 		$response = $this->instance
 			->setGetfield('?' . http_build_query(array_merge(array(
-				'screen_name' 	=> $this->options['user_id'], 
+				'screen_name' 	=> $this->options['user_id'],
 				'count' 		=> $limit
 			), $params)))
 			->buildOauth('https://api.twitter.com/1.1/statuses/user_timeline.json', 'GET')
@@ -31,7 +31,7 @@ class TwitterStatus extends SocialNetwork {
 
 		foreach ($data as $item) {
 			$item = $this->parse_message($item);
-			
+
 			$filtered[] = (object)array(
 				'id'			=> $item->id,
 				'type'			=> $this::$name,
@@ -77,17 +77,17 @@ class TwitterStatus extends SocialNetwork {
 					$text 		= $tweet->text;
 					$string 	= $item->$find;
 					$href 		= $url . $string;
-					
+
 					if (!(strpos($href, 'https://') === 0)) {
 						$href = "https://".$href;
 					}
 
 					$replace = substr($text, $item->indices[0], $item->indices[1]-$item->indices[0]);
-					$with = "<a href=\"$href\">{$prefix}{$string}</a>";
+					$with = "<a href=\"$href\" target=\"_blank\">{$prefix}{$string}</a>";
 					$replace_index[$replace] = $with;
 				}
 			}
-			
+
 			foreach ($replace_index as $replace => $with) {
 				$tweet->text = str_replace($replace, $with, $tweet->text);
 			}
