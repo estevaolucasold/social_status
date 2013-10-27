@@ -32,7 +32,8 @@ abstract class SocialNetwork {
 		$content = @file_get_contents($this->cache_file);
 
 		if (file_exists($this->cache_file) && (time() - $this->cache_expire_time < @filemtime($this->cache_file)) && !empty($content)) {
-			return $this->unique(json_decode($content));
+			$content = json_decode($content);
+			return $this->unique((array)$content);
 		} else {
 			$content = $this->get_data($limit);
 			file_put_contents($this->cache_file, json_encode($content));
